@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}All Tasks{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Your Tasks</h2>
+  <a href="{% url 'create_task' %}" class="btn btn-primary">+ Add Task</a>
+</div>
+
+{% if tasks %}
+  <ul class="list-group">
+    {% for task in tasks %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ task.title }}</strong>
+          <p class="mb-1">{{ task.description }}</p>
+          <small class="text-muted">{{ task.created_at }}</small>
+        </div>
+        <div>
+          <a href="{% url 'update_task' task.id %}" class="btn btn-sm btn-warning btn-lg" style="width:90px; height:30px;">Edit</a>
+          <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-lg" style="width:90px; height:30px;">Delete</a>
+        </div>
+      </li><br>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="text-muted">No tasks found. Add one!</p>
+{% endif %}
+{% endblock %}
